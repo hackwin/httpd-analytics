@@ -33,52 +33,53 @@ $apacheAccessRegex .= '$/'; //end regex
 Fields:
 ```
     $fields = array(
-        'line' => $i++, //0
-        'ipAddress' => $i++, //1
-        'htaccessUserName' => $i++, //2
-        'date' => $i++, //3
-        'time' => $i++, //4
-        'timeZone' => $i++, //5
-        'requestMethod' => $i++, //6
-        'requestPath' => $i++, //7
-        'queryString' => $i++, //8             
-        'httpResponseCode' => $i++, //9
-        'hostName' => $i++, //10
-        'requestSizeBytes' => $i++, //11
-        'responseSizeBytes' => $i++, //12
-        'loadTimeMicroSeconds' => $i++, //13
-        'fileName' => $i++, //14
-        'serverName' => $i++, //15
-        'serverPort' => $i++, //16
-        'referer' => $i++, //17
-        'userAgent' => $i++, //18
-        'cookie' => $i++ //19
+        'line',
+        'ipAddress',
+        'htaccessUserName',
+        'date',
+        'time',
+        'timeZone',
+        'requestMethod',
+        'requestPath',
+        'queryString',           
+        'httpResponseCode', 
+        'hostName', 
+        'requestSizeBytes', 
+        'responseSizeBytes', 
+        'loadTimeMicroSeconds', 
+        'fileName', 
+        'serverName',
+        'serverPort', 
+        'referer', 
+        'userAgent', 
+        'cookie'
     );
+$fields = array_flip($fields);
 ```
 
 Database row values:
 ```
         $vals = array(
-            /* 0 */ 'added' => date('Y-m-d H:i:s',strtotime($matches[$fields['date']] .':'.$matches[$fields['time']].' '.$matches[$fields['timeZone']])),
-            /* 1 */ 'url' => $matches[$fields['requestPath']],
-            /* 2 */ 'query_string' => $matches[$fields['queryString']],
-            /* 3 */ 'file_name' => $matches[$fields['fileName']],
-            /* 4 */ 'server_name' => $matches[$fields['serverName']],
-            /* 5 */ 'server_port' => $matches[$fields['serverPort']],
-            /* 6 */ 'method' => $matches[$fields['requestMethod']],
-            /* 8 */ 'http_response_code' => $matches[$fields['httpResponseCode']],
-            /* 9 */ 'ip_address' => $matches[$fields['ipAddress']],
-            /* 10 */ 'host_name' => '',//$matches[$fields['hostName']],
-            /* 11 */ 'bytes_request' => $matches[$fields['requestSizeBytes']],
-            /* 12 */ 'bytes_response' => $matches[$fields['responseSizeBytes']],
-            /* 13 */ 'load_time' => $matches[$fields['loadTimeMicroSeconds']]/1000000,
-            /* 14 */ 'user_agent' => str_replace('\"', '"', $matches[$fields['userAgent']]),
-            /* 15 */ 'referer' => $matches[$fields['referer']],
-            /* 16 */ 'cookie' => $matches[$fields['cookie']],
-            /* 17 */ 'htaccess_user' => $matches[$fields['htaccessUserName']],
-            /* 18 */ 'source_file' => $apacheAccessLogFile,
-            /* 19 */ 'line_number' => $lineNumber,
-            /* 20 */ 'line' => $matches[$fields['line']]
+            'added' => date('Y-m-d H:i:s',strtotime($matches[$fields['date']] .':'.$matches[$fields['time']].' '.$matches[$fields['timeZone']])),
+            'url' => $matches[$fields['requestPath']],
+            'query_string' => $matches[$fields['queryString']],
+            'file_name' => $matches[$fields['fileName']],
+            'server_name' => $matches[$fields['serverName']],
+            'server_port' => $matches[$fields['serverPort']],
+            'method' => $matches[$fields['requestMethod']],
+            'http_response_code' => $matches[$fields['httpResponseCode']],
+            'ip_address' => $matches[$fields['ipAddress']],
+            'host_name' => '',//$matches[$fields['hostName']],
+            'bytes_request' => $matches[$fields['requestSizeBytes']],
+            'bytes_response' => $matches[$fields['responseSizeBytes']],
+            'load_time' => $matches[$fields['loadTimeMicroSeconds']]/1000000,
+            'user_agent' => str_replace('\"', '"', $matches[$fields['userAgent']]),
+            'referer' => $matches[$fields['referer']],
+            'cookie' => $matches[$fields['cookie']],
+            'htaccess_user' => $matches[$fields['htaccessUserName']],
+            'source_file' => $apacheAccessLogFile,
+            'line_number' => $lineNumber,
+            'line' => $matches[$fields['line']]
         );
 ```
 
