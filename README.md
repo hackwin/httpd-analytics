@@ -3,7 +3,7 @@ Custom log format and insertion into database tables.  Support for apache.access
 
 Apache settings:
 ```
-LogFormat "%a %u %t %m \"%U\" \"%q\" %>s \"%h\" %I %O %D \"%f\" \"%V\" %p \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookie}i\"" custom_log_format
+LogFormat "%a %u %t %m \"%{REQUEST_URI}e\" \"%q\" %>s \"%h\" %I %O %D \"%f\" \"%V\" %p \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookie}i\"" custom_log_formatcustom_log_format
 ```
 Enable module: `mod_logio`
 
