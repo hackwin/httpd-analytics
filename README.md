@@ -63,7 +63,7 @@ Database row values:
 ```
         $vals = array(
             'added' => date('Y-m-d H:i:s',strtotime($matches[$fields['date']] .':'.$matches[$fields['time']].' '.$matches[$fields['timeZone']])),
-            'pre_url' => strtok($matches[$fields['preRequestPath']]),
+            'pre_url' => strtok($matches[$fields['preRequestPath']], '?'),
 			'post_url' => $matches[$fields['postRequestPath']],
             'query_string' => $matches[$fields['queryString']],
             'file_name' => $matches[$fields['fileName']],
