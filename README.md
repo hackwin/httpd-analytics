@@ -3,7 +3,7 @@ Custom log format and insertion into database tables.  Support for apache.access
 
 Apache settings:
 ```
-LogFormat "%a %u %t %m \"%{REQUEST_URI}e\" \"%q\" %>s \"%h\" %I %O %D \"%f\" \"%V\" %p \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookie}i\"" custom_log_formatcustom_log_format
+LogFormat "%a %u %t %m \"%{REQUEST_URI}e\" \"%U\" \"%q\" %>s \"%h\" %I %O %D \"%f\" \"%V\" %p \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookie}i\"" custom_log_format
 ```
 Enable module: `mod_logio`
 
@@ -14,7 +14,8 @@ $apacheAccessRegex .= '(\S+)'; // %a (Client IP address)
 $apacheAccessRegex .= ' (\S+)'; // %u (Remote user if authenticated)
 $apacheAccessRegex .= ' \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\]'; // %t time
 $apacheAccessRegex .= ' (\S+)'; // %m (Request method)
-$apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%{REQUEST_URI}e\" (URL path requested without query string)
+$apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%{REQUEST_URI}e\" (pre URL path requested without query string)
+$apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%U\" (post URL path requested without query string)
 $apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%q\" (Query String)
 $apacheAccessRegex .= ' (\S+)'; // %>s (Status of the original request -- http response code)
 $apacheAccessRegex .= ' "([^"]*)"'; // \"h\" (remote hostname, logs IP if HostnameLookups is Off)
@@ -40,7 +41,8 @@ Fields:
         'time',
         'timeZone',
         'requestMethod',
-        'requestPath',
+        'preRequestPath',
+		'postRequestPath',
         'queryString',           
         'httpResponseCode', 
         'hostName', 
@@ -61,7 +63,8 @@ Database row values:
 ```
         $vals = array(
             'added' => date('Y-m-d H:i:s',strtotime($matches[$fields['date']] .':'.$matches[$fields['time']].' '.$matches[$fields['timeZone']])),
-            'url' => $matches[$fields['requestPath']],
+            'pre_url' => strtok($matches[$fields['preRequestPath']]),
+			'post_url' => $matches[$fields['postRequestPath']],
             'query_string' => $matches[$fields['queryString']],
             'file_name' => $matches[$fields['fileName']],
             'server_name' => $matches[$fields['serverName']],
