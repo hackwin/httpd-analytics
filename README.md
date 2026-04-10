@@ -1,6 +1,8 @@
 # httpd-analytics
 Custom log format and insertion into database tables.  Support for apache.access.log and php_error.log
 
+Run the .SQL file to create the schema and tables
+
 Apache settings:
 ```
 LogFormat "%a %u %t %m \"%{REQUEST_URI}e\" \"%U\" \"%q\" %>s \"%h\" %I %O %D \"%f\" \"%V\" %p \"%{Referer}i\" \"%{User-agent}i\" \"%{Cookie}i\"" custom_log_format
@@ -15,7 +17,7 @@ $apacheAccessRegex .= ' (\S+)'; // %u (Remote user if authenticated)
 $apacheAccessRegex .= ' \[([^:]+):(\d+:\d+:\d+) ([^\]]+)\]'; // %t time
 $apacheAccessRegex .= ' (\S+)'; // %m (Request method)
 $apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%{REQUEST_URI}e\" (pre URL path requested)
-$apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%U\" (post URL path requested without query string)
+$apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%U\" (post URL path requested)
 $apacheAccessRegex .= ' "((?:[^"\\\\]|\\\\.)*)"'; // \"%q\" (Query String)
 $apacheAccessRegex .= ' (\S+)'; // %>s (Status of the original request -- http response code)
 $apacheAccessRegex .= ' "([^"]*)"'; // \"h\" (remote hostname, logs IP if HostnameLookups is Off)
